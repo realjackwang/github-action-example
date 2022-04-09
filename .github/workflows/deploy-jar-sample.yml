@@ -1,0 +1,25 @@
+name: "commit-master"
+
+on:
+  push:
+    branches: 
+    - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out 
+      uses: actions/checkout@v2
+
+    - name: functiongraph-deploy-action
+      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      with:
+        ak: ${{ secrets.AK }}
+        sk: ${{ secrets.SK }}
+        endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
+        project_id: ${{ secrets.PROJECTID }}
+        function_codetype: jar
+        function_urn: urn:fss:cn-north-4:${{ secrets.PROJECTID }}:function:default:${{ secrets.FUNCTIONNAME}}:latest
+        function_file: ./java-sample/functionj.jar
