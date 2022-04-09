@@ -99,7 +99,7 @@ name: deploy jar to huaweicloud functiongraph
     function_file: ./python-sample/index-py.zip
  ```
  
- 其他编程语言函数开发指南:
+ ## **其他编程语言函数开发指南:**
  **NodeJS函数开发:**
 	[ Node.js函数开发指南](https://support.huaweicloud.com/devg-functiongraph/functiongraph_02_0410.html)
 **Python函数开发**
