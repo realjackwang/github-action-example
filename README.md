@@ -40,7 +40,10 @@ deploy-functiongraph-action 在github workflow 上的使用样例:
     function_file: "https://huaweihdnbucket.obs.cn-north-4.myhuaweicloud.com/function/publishmarket/index_obs.zip
 ```
 ### 2、java jar包方式
-如果函数使用java开发，可以将java工程打包为jar,function_codetype填写为jar,将jar包在本地的路径填写到function_file上，样例如下
+如果函数使用java开发，可以将java工程打包为jar,function_codetype填写为jar,将jar包在本地的路径填写到function_file上，
+样例代码请参考本项目java-sample/functionj,可以直接在内进行开发，开发说明请参考:https://support.huaweicloud.com/devg-functiongraph/functiongraph_02_0430.html
+打包方式:在eclipse中导入项目，开发完成之后，右键项目，选export --> jar
+workflow 样例如下
 ```yaml
 name: deploy jar to huaweicloud functiongraph
   uses: huaweicloud/deploy-functiongraph-action@v1.0
