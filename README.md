@@ -16,13 +16,14 @@
 ak:华为云账号的AK字符串，必填
 sk:华为云账号的SK字符串，必填
 endpoint:函数服务的endpoint，必填
-project_id:华为云账号的project_id
-function_urn:函数的urn，必填,请根据自己的function urn路径调整参数
-function_codetype:函数更新方式,目前支持obs,zip,file,dir,jar五中
-function_file:函数文件的路径，如果是obs，请填写该文件在OBS上的路径，如果为其他方式，请填写文件或者目录在本地的绝对路径
+project_id:华为云账号的project_id，必填
+function_urn:函数的urn，必填,请根据自己的function urn路径调整参数，必填
+function_codetype:函数更新方式,目前支持obs,zip,file,dir,jar五种，必填
+function_file:函数文件的路径，如果是obs，请填写该文件在OBS上的路径，如果为其他方式，请填写文件或者目录在本地的绝对路径或者相对路径，出了OBS文件填写文件链接，其他不要填网络连接，必填
 
 ## **使用样例:**
 deploy-functiongraph-action 在github workflow 上的使用样例:
+注意:如果需要上传的文件或目录接近或大于50M，请上传到OBS，使用OBS的方式进行部署
 ### **workflow填写参数说明:**
 需要在项目的setting--Secret--Actions下添加 AK,SK,PROJECTID,FUNCTIONAME四个参数
 ### 1、OBS方式
@@ -103,6 +104,7 @@ name: deploy jar to huaweicloud functiongraph
     function_file: ./python-sample/index-py.zip
  ```
  github workflow yml地址: `.github/workflows/deploy-zip-sample.yml`
+
  ## **其他编程语言函数开发指南:**
  **NodeJS函数开发:**
 &ensp;&ensp;[ Node.js函数开发指南](https://support.huaweicloud.com/devg-functiongraph/functiongraph_02_0410.html)
@@ -119,5 +121,5 @@ name: deploy jar to huaweicloud functiongraph
 &ensp;&ensp;[C#函数开发指南](https://support.huaweicloud.com/devg-functiongraph/functiongraph_02_0450.html)
 &ensp;&ensp;[使用NET Core CLI开发](https://support.huaweicloud.com/devg-functiongraph/functiongraph_02_0451.html)
 &ensp;&ensp;[使用Visual Studio开发](https://support.huaweicloud.com/devg-functiongraph/functiongraph_02_0452.html)
-PHP函数开发
+**PHP函数开发**
 &ensp;&ensp;[PHP函数开发指南](https://support.huaweicloud.com/devg-functiongraph/functiongraph_02_0460.html)
