@@ -4,22 +4,27 @@ on:
   push:
     branches: 
     - 'master'
-
+env: 
+    REGIONID: ${region_id}
+    FUNCTIONURN: ${function_urn}
+    PROJECTID: ${project_id}
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: Check Out 
       uses: actions/checkout@v2
+
+    -name: zip function
+      run: zip -j index-py.zip ./python-sample/index.py
 
     - name: functiongraph-deploy-action
       uses: huaweicloud/functiongraph-deploy-action@v1.0
       with:
         ak: ${{ secrets.AK }}
         sk: ${{ secrets.SK }}
-        endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-        project_id: ${{ secrets.PROJECTID }}
+        endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
+        project_id: ${{ env.PROJECTID }}
         function_codetype: zip
-        function_urn: urn:fss:cn-north-4:${{ secrets.PROJECTID }}:function:default:${{ secrets.FUNCTIONNAME}}:latest
-        function_file: ./python-sample/index-py.zip
+        function_urn: ${{ env.FUNCTIONURN}}
+        function_file: ./index-py.zip

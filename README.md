@@ -25,18 +25,19 @@ function_file:函数文件的路径，如果是obs，请填写该文件在OBS上
 deploy-functiongraph-action 在github workflow 上的使用样例:
 注意:如果需要上传的文件或目录接近或大于50M，请上传到OBS，使用OBS的方式进行部署
 ### **workflow填写参数说明:**
-需要在项目的setting--Secret--Actions下添加 AK,SK,PROJECTID,FUNCTIONAME四个参数
+(1).需要在项目的setting--Secret--Actions下添加 ACCESSKEY SECRETACCESSKEY 两个参数
+(2).需要在workflows的yml中填写 ${region_id} ,${function_urn} ,${project_id} 三个环境参数
 ### 1、OBS方式
 如果函数文件比较大(超过50M),请先将文件上传到OBS，然后将该文件在OBS中的路径配置到function_file上,function_codetype填写为obs
 ```yaml
  name: deploy serverless function to huaweicloud functiongraph by obs
   uses: huaweicloud/deploy-functiongraph-action@v1.0
   with:
-    ak: ${{ secrets.AK }}
-    sk: ${{ secrets.SK }}
-    endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-    project_id: ${{ secrets.PROJECTID }}
-    function_urn: urn:fss:cn-north-4:${{ secrets.PROJECTID }}:function:default:${{ secrets.FUNCTIONNAME}}:latest
+    ak: ${{ secrets.ACCESSKEY }}
+    sk: ${{ secrets.SECRETACCESSKEY }}
+    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
+    project_id: ${{ env.PROJECTID }}
+    function_urn: ${{ env.FUNCTIONURN}}
     function_codetype: obs
     function_file: "https://huaweihdnbucket.obs.cn-north-4.myhuaweicloud.com/function/publishmarket/index_obs.zip
 ```
@@ -50,11 +51,11 @@ workflow 样例如下
 name: deploy jar to huaweicloud functiongraph
   uses: huaweicloud/deploy-functiongraph-action@v1.0
   with:
-    ak: ${{ secrets.AK }}
-    sk: ${{ secrets.SK }}
-    endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-    project_id: ${{ secrets.PROJECTID }}
-    function_urn: urn:fss:cn-north-4:${{ secrets.PROJECTID }}:function:default:${{ secrets.FUNCTIONNAME}}:latest
+    ak: ${{ secrets.ACCESSKEY }}
+    sk: ${{ secrets.SECRETACCESSKEY }}
+    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
+    project_id: ${{ env.PROJECTID }}
+    function_urn: ${{ env.FUNCTIONURN}}
     function_codetype: jar
     function_file: ./java-sample/functionj.jar
  ```   
@@ -65,11 +66,11 @@ name: deploy jar to huaweicloud functiongraph
 - name: deploy single function file to huaweicloud functiongraph
   uses: huaweicloud/deploy-functiongraph-action@v1.0
   with:
-    ak: ${{ secrets.AK }}
-    sk: ${{ secrets.SK }}
-    endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-    project_id: ${{ secrets.PROJECTID }}
-    function_urn: urn:fss:cn-north-4:${{ secrets.PROJECTID }}:function:default:${{ secrets.FUNCTIONNAME}}:latest
+    ak: ${{ secrets.ACCESSKEY }}
+    sk: ${{ secrets.SECRETACCESSKEY }}
+    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
+    project_id: ${{ env.PROJECTID }}
+    function_urn: ${{ env.FUNCTIONURN}}
     function_codetype: file
     function_file: ./python-sample/index.py
  ```   
@@ -80,11 +81,11 @@ name: deploy jar to huaweicloud functiongraph
 - name: deploy single function file to huaweicloud functiongraph
   uses: huaweicloud/deploy-functiongraph-action@v1.0
   with:
-    ak: ${{ secrets.AK }}
-    sk: ${{ secrets.SK }}
-    endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-    project_id: ${{ secrets.PROJECTID }}
-    function_urn: urn:fss:cn-north-4:${{ secrets.PROJECTID }}:function:default:${{ secrets.FUNCTIONNAME}}:latest
+    ak: ${{ secrets.ACCESSKEY }}
+    sk: ${{ secrets.SECRETACCESSKEY }}
+    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
+    project_id: ${{ env.PROJECTID }}
+    function_urn: ${{ env.FUNCTIONURN}}
     function_codetype: dir
     function_file: ./python-sample/function/
  ```  
@@ -95,13 +96,13 @@ name: deploy jar to huaweicloud functiongraph
 - name: deploy single function file to huaweicloud functiongraph
   uses: huaweicloud/deploy-functiongraph-action@v1.0
   with:
-    ak: ${{ secrets.AK }}
-    sk: ${{ secrets.SK }}
-    endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-    project_id: ${{ secrets.PROJECTID }}
-    function_urn: urn:fss:cn-north-4:${{ secrets.PROJECTID }}:function:default:${{ secrets.FUNCTIONNAME}}:latest
+    ak: ${{ secrets.ACCESSKEY }}
+    sk: ${{ secrets.SECRETACCESSKEY }}
+    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
+    project_id: ${{ env.PROJECTID }}
+    function_urn: ${{ env.FUNCTIONURN}}
     function_codetype: zip
-    function_file: ./python-sample/index-py.zip
+    function_file: ./index-py.zip
  ```
  github workflow yml地址: `.github/workflows/deploy-zip-sample.yml`
 
