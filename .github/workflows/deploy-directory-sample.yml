@@ -4,7 +4,6 @@ on:
   push:
     branches: 
     - 'master'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,13 +12,13 @@ jobs:
     - name: Check Out 
       uses: actions/checkout@v2
 
-    - name: functiongraph-deploy-action
+    - name: deploy function directory to huaweicloud functiongraph
       uses: huaweicloud/functiongraph-deploy-action@v1.0
       with:
-        ak: ${{ secrets.AK }}
-        sk: ${{ secrets.SK }}
-        endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-        project_id: 0dd8cb413000906a2fcdc019b5a84546
+        ak: ${{ secrets.ACCESSKEY }}
+        sk: ${{ secrets.SECRETACCESSKEY }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
         function_codetype: dir
-        function_urn: urn:fss:cn-north-4:0dd8cb413000906a2fcdc019b5a84546:function:default:${{ secrets.FUNCTIONNAME}}:latest
+        function_urn: ${function_urn}
         function_file: ./python-sample/function/
