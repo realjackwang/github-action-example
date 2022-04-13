@@ -4,10 +4,6 @@ on:
   push:
     branches: 
     - 'master'
-env: 
-    REGIONID: ${region_id}
-    FUNCTIONURN: ${function_urn}
-    PROJECTID: ${project_id}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,14 +12,14 @@ jobs:
     - name: Check Out 
       uses: actions/checkout@v2
 
-    - name: functiongraph-deploy-action
+    - name: deploy single function file to huaweicloud functiongraph
       uses: huaweicloud/functiongraph-deploy-action@v1.0
       with:
-        ak: ${{ secrets.AK }}
-        sk: ${{ secrets.SK }}
-        endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
-        project_id: ${{ env.PROJECTID }}
+        ak: ${{ secrets.ACCESSKEY }}
+        sk: ${{ secrets.SECRETACCESSKEY }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
         function_codetype: file
-        function_urn: ${{ env.FUNCTIONURN}}
+        function_urn: ${function_urn}
         function_file: ./python-sample/index.py
 

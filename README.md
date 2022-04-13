@@ -26,20 +26,21 @@ deploy-functiongraph-action 在github workflow 上的使用样例:
 注意:如果需要上传的文件或目录接近或大于50M，请上传到OBS，使用OBS的方式进行部署
 ### **workflow填写参数说明:**
 (1).需要在项目的setting--Secret--Actions下添加 ACCESSKEY SECRETACCESSKEY 两个参数
-(2).需要在workflows的yml中填写 ${region_id} ,${function_urn} ,${project_id} 三个环境参数
+(2).需要在workflows的yml中填写 ${endpint} ,${projectid} ,${function_urn} ${obs-endpoint} 等参数
 ### 1、OBS方式
 如果函数文件比较大(超过50M),请先将文件上传到OBS，然后将该文件在OBS中的路径配置到function_file上,function_codetype填写为obs
 ```yaml
- name: deploy serverless function to huaweicloud functiongraph by obs
-  uses: huaweicloud/deploy-functiongraph-action@v1.0
-  with:
-    ak: ${{ secrets.ACCESSKEY }}
-    sk: ${{ secrets.SECRETACCESSKEY }}
-    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
-    project_id: ${{ env.PROJECTID }}
-    function_urn: ${{ env.FUNCTIONURN}}
-    function_codetype: obs
-    function_file: "https://huaweihdnbucket.obs.cn-north-4.myhuaweicloud.com/function/publishmarket/index_obs.zip
+    #通过OBS部署函数
+    - name: deploy OBS function file to huaweicloud functiongraph
+      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      with:
+        ak: ${{ secrets.ACCESSKEY }}
+        sk: ${{ secrets.SECRETACCESSKEY }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
+        function_codetype: obs
+        function_urn: ${function_urn}
+        function_file: https://bucket-test.${obs-endpoint}/function/functionj/v1.0.0.1/functionj.jar
 ```
 github workflow yml地址: `.github/workflows/deploy-obs-sample.yml`
 ### 2、java jar包方式
@@ -48,61 +49,61 @@ github workflow yml地址: `.github/workflows/deploy-obs-sample.yml`
 打包方式:在eclipse中导入项目，开发完成之后，右键项目，选export --> jar
 workflow 样例如下
 ```yaml
-name: deploy jar to huaweicloud functiongraph
-  uses: huaweicloud/deploy-functiongraph-action@v1.0
-  with:
-    ak: ${{ secrets.ACCESSKEY }}
-    sk: ${{ secrets.SECRETACCESSKEY }}
-    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
-    project_id: ${{ env.PROJECTID }}
-    function_urn: ${{ env.FUNCTIONURN}}
-    function_codetype: jar
-    function_file: ./java-sample/functionj.jar
+    - name: deploy java jar to huaweicloud functiongraph
+      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      with:
+        ak: ${{ secrets.ACCESSKEY }}
+        sk: ${{ secrets.SECRETACCESSKEY }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
+        function_codetype: jar
+        function_urn: ${function_urn}
+        function_file: ./target/functionj.jar
  ```   
  github workflow yml地址: `.github/workflows/deploy-jar-sample.yml`
 ### 3、单个函数文件
 如果函数为单个文件，可以直接上传改单个函数文件，function_codetype填写为file,将函数文件在本地的路径填写到function_file上，样例如下
 ```yaml
-- name: deploy single function file to huaweicloud functiongraph
-  uses: huaweicloud/deploy-functiongraph-action@v1.0
-  with:
-    ak: ${{ secrets.ACCESSKEY }}
-    sk: ${{ secrets.SECRETACCESSKEY }}
-    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
-    project_id: ${{ env.PROJECTID }}
-    function_urn: ${{ env.FUNCTIONURN}}
-    function_codetype: file
-    function_file: ./python-sample/index.py
+    - name: deploy single function file to huaweicloud functiongraph
+      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      with:
+        ak: ${{ secrets.ACCESSKEY }}
+        sk: ${{ secrets.SECRETACCESSKEY }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
+        function_codetype: file
+        function_urn: ${function_urn}
+        function_file: ./python-sample/index.py
  ```   
  github workflow yml地址: `.github/workflows/deploy-file-sample.yml`
  ### 4、函数目录
  如果函数文件比较多，可以将函数都集中到一个目录下，将整个目录作为函数上传，function_codetype填写为dir,将函数目录在本地的路径填写到function_file上，样例如下
 ```yaml
-- name: deploy single function file to huaweicloud functiongraph
-  uses: huaweicloud/deploy-functiongraph-action@v1.0
-  with:
-    ak: ${{ secrets.ACCESSKEY }}
-    sk: ${{ secrets.SECRETACCESSKEY }}
-    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
-    project_id: ${{ env.PROJECTID }}
-    function_urn: ${{ env.FUNCTIONURN}}
-    function_codetype: dir
-    function_file: ./python-sample/function/
+    - name: deploy function directory to huaweicloud functiongraph
+      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      with:
+        ak: ${{ secrets.ACCESSKEY }}
+        sk: ${{ secrets.SECRETACCESSKEY }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
+        function_codetype: dir
+        function_urn: ${function_urn}
+        function_file: ./python-sample/function/
  ```  
  github workflow yml地址: `.github/workflows/deploy-directory-sample.yml`
 ### 5、zip压缩包
 如果函数文件比较多，也可以将函数打包成zip，将zip文件作为函数上传，function_codetype填写为zip,将函数目录在本地的路径填写到function_file上，样例如下
 ```yaml
-- name: deploy single function file to huaweicloud functiongraph
-  uses: huaweicloud/deploy-functiongraph-action@v1.0
-  with:
-    ak: ${{ secrets.ACCESSKEY }}
-    sk: ${{ secrets.SECRETACCESSKEY }}
-    endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
-    project_id: ${{ env.PROJECTID }}
-    function_urn: ${{ env.FUNCTIONURN}}
-    function_codetype: zip
-    function_file: ./index-py.zip
+    - name: deploy compress zip file function to huaweicloud functiongraph
+      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      with:
+        ak: ${{ secrets.ACCESSKEY }}
+        sk: ${{ secrets.SECRETACCESSKEY }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
+        function_codetype: zip
+        function_urn: ${function_urn}
+        function_file: ./index-py.zip
  ```
  github workflow yml地址: `.github/workflows/deploy-zip-sample.yml`
 

@@ -4,10 +4,6 @@ on:
   push:
     branches: 
     - 'master'
-env: 
-    REGIONID: ${region_id}
-    FUNCTIONURN: ${function_urn}
-    PROJECTID: ${project_id}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,13 +35,13 @@ jobs:
         obs_file_path: function/functionj/v1.0.0.1/    
 
     #通过OBS部署函数
-    - name: functiongraph-deploy-action
+    - name: deploy OBS function file to huaweicloud functiongraph
       uses: huaweicloud/functiongraph-deploy-action@v1.0
       with:
         ak: ${{ secrets.ACCESSKEY }}
         sk: ${{ secrets.SECRETACCESSKEY }}
-        endpoint: https://functiongraph.${{ env.REGIONID }}.myhuaweicloud.com
-        project_id: ${{ env.PROJECTID }}
+        endpoint: ${endpint}
+        project_id: ${projectid}
         function_codetype: obs
-        function_urn: ${{ env.FUNCTIONURN}}
-        function_file: https://bucket-test.obs.${{ env.REGIONID }}.myhuaweicloud.com/function/functionj/v1.0.0.1/functionj.jar
+        function_urn: ${function_urn}
+        function_file: https://bucket-test.${obs-endpoint}/function/functionj/v1.0.0.1/functionj.jar
