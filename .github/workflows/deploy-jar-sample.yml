@@ -22,7 +22,7 @@ jobs:
       run: mvn clean -U package -Dmaven.test.skip 
 
     - name: deploy java jar to huaweicloud functiongraph
-      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      uses: huaweicloud/deploy-functiongraph-action@v1.0
       with:
         ak: ${{ secrets.ACCESSKEY }}
         sk: ${{ secrets.SECRETACCESSKEY }}
