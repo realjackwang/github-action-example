@@ -15,7 +15,7 @@ jobs:
       run: zip -j index-py.zip ./python-sample/index.py
 
     - name: deploy compress zip function file to huaweicloud functiongraph
-      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      uses: huaweicloud/deploy-functiongraph-action@v1.0
       with:
         ak: ${{ secrets.ACCESSKEY }}
         sk: ${{ secrets.SECRETACCESSKEY }}
