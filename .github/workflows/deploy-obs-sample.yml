@@ -36,7 +36,7 @@ jobs:
 
     #通过OBS部署函数
     - name: deploy OBS function file to huaweicloud functiongraph
-      uses: huaweicloud/functiongraph-deploy-action@v1.0
+      uses: huaweicloud/deploy-functiongraph-action@v1.0
       with:
         ak: ${{ secrets.ACCESSKEY }}
         sk: ${{ secrets.SECRETACCESSKEY }}
