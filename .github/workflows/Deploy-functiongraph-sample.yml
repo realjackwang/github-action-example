@@ -22,6 +22,6 @@ jobs:
         sk: ${{ secrets.SECRETACCESSKEY }}
         endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
         project_id: 086cd4ee9e00268e2f76c00ea33b6cbe
-        function_codetype: jar
-        function_urn: urn:fss:cn-north-4:086cd4ee9e00268e2f76c00ea33b6cbe:function:default:github-action-sample-jar:latest
-        function_file: ./java-sample/functionj.jar
+        function_codetype: file
+        function_urn: urn:fss:cn-north-4:086cd4ee9e00268e2f76c00ea33b6cbe:function:default:github-action-sample-func:latest
+        function_file: ./python-sample/index.py
