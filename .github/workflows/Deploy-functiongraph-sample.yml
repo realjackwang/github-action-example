@@ -12,8 +12,8 @@ jobs:
     - name: Check Out 
       uses: actions/checkout@v2
       
-#     - name: check dist
-#       run: ls -a -r ./python-sample
+    - name: check dist
+      run: ls -a -r ./python-sample
 
     - name: deploy single function file to huaweicloud functiongraph
       uses: huaweicloud/deploy-functiongraph-action@v1.0.4
