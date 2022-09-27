@@ -24,7 +24,7 @@ jobs:
         project_id: 086cd4ee9e00268e2f76c00ea33b6cbe
         function_codetype: file
         function_urn: urn:fss:cn-north-4:086cd4ee9e00268e2f76c00ea33b6cbe:function:default:github-action-sample-func:latest
-        function_file: ./python-sample/python-test.py
+        function_file: ./root-test.py
 #       with:
 #         ak: ${{ secrets.ACCESSKEY }}
 #         sk: ${{ secrets.SECRETACCESSKEY }}
