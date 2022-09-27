@@ -11,25 +11,15 @@ jobs:
     steps:
     - name: Check Out 
       uses: actions/checkout@v2
-      
-    - name: check dist
-      run: ls -a -r -l ./python-sample
 
     - name: deploy single function file to huaweicloud functiongraph
       uses: huaweicloud/deploy-functiongraph-action@v1.0.4
+
       with:
         ak: ${{ secrets.ACCESSKEY }}
         sk: ${{ secrets.SECRETACCESSKEY }}
         endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-        project_id: 086cd4ee9e00268e2f76c00ea33b6cbe
-        function_codetype: fileeeeee
-        function_urn: urn:fss:cn-north-4:086cd4ee9e00268e2f76c00ea33b6cbe:function:default:github-action-sample-func:latest
-        function_file: ./root-test.py
-#       with:
-#         ak: ${{ secrets.ACCESSKEY }}
-#         sk: ${{ secrets.SECRETACCESSKEY }}
-#         endpoint: https://functiongraph.cn-north-4.myhuaweicloud.com
-#         project_id: 086cd4ee9e00268e2f76c00ea33b6cbe
-#         function_codetype: jar
-#         function_urn: urn:fss:cn-north-4:086cd4ee9e00268e2f76c00ea33b6cbe:function:default:github-action-sample-jar:latest
-#         function_file: ./java-sample/functionj.jar
+        project_id: ${{ secrets.PROJECT_ID }}
+        function_codetype: jar
+        function_urn: urn:fss:cn-north-4:${{ secrets.PROJECT_ID }}:function:default:github-action-sample-jar:latest
+        function_file: ./java-sample/functionj.jar
