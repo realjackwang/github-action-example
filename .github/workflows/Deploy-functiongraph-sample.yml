@@ -1,4 +1,4 @@
-name: Deploy-functiongraph-sample
+name: Deploy-functiongraph-sample1
 
 on:
   push:
