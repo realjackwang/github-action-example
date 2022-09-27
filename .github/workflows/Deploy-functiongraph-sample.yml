@@ -11,6 +11,9 @@ jobs:
     steps:
     - name: Check Out 
       uses: actions/checkout@v2
+      
+    - name: check dist
+      run: ls -a -r ./
 
     - name: deploy single function file to huaweicloud functiongraph
       uses: huaweicloud/deploy-functiongraph-action@v1.0.4
